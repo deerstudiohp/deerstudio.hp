@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Deer Studio — Oh Deer! Your content never looked this good.</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0b08;
+    --bg2:#16110a;
+    --cream:#f5ecd9;
+    --gold:#d4a24a;
+    --gold-soft:#e8c989;
+    --rust:#b5533a;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg);
+    color:var(--cream);
+    overflow-x:hidden;
+  }
+  .font-display{font-family:'Playfair Display',serif;}
+  .grain::before{
+    content:"";
+    position:fixed;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+    opacity:.08;pointer-events:none;z-index:100;mix-blend-mode:overlay;
+  }
+  .gold-text{
+    background:linear-gradient(135deg,#f5e5b8 0%,#d4a24a 45%,#8a5a1f 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .glow{
+    background:radial-gradient(circle at 30% 20%,rgba(212,162,74,.25),transparent 60%),
+               radial-gradient(circle at 80% 80%,rgba(181,83,58,.2),transparent 55%);
+  }
+  .deer-float{animation:float 6s ease-in-out infinite;}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .marquee{display:flex;gap:3rem;animation:scroll 30s linear infinite;}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .service-card{
+    background:linear-gradient(160deg,rgba(245,236,217,.04),rgba(245,236,217,.01));
+    border:1px solid rgba(212,162,74,.15);
+    transition:all .5s cubic-bezier(.2,.9,.3,1);
+    backdrop-filter:blur(10px);
+  }
+  .service-card:hover{
+    border-color:rgba(212,162,74,.5);
+    transform:translateY(-6px);
+    background:linear-gradient(160deg,rgba(212,162,74,.08),rgba(245,236,217,.02));
+  }
+  .service-card .ico{transition:transform .5s;}
+  .service-card:hover .ico{transform:scale(1.15) rotate(-6deg);}
+  .btn-primary{
+    background:linear-gradient(135deg,var(--gold),var(--rust));
+    color:#0d0b08;font-weight:600;
+    transition:all .3s;
+  }
+  .btn-primary:hover{box-shadow:0 10px 40px rgba(212,162,74,.45);transform:translateY(-2px);}
+  .btn-ghost{border:1px solid rgba(245,236,217,.3);transition:all .3s;}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
+  .nav-blur{backdrop-filter:blur(14px);background:rgba(13,11,8,.6);border-bottom:1px solid rgba(245,236,217,.06);}
+  .gallery-item{position:relative;overflow:hidden;border-radius:12px;}
+  .gallery-item img{transition:transform .8s ease;}
+  .gallery-item:hover img{transform:scale(1.08);}
+  .gallery-item::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(13,11,8,.85),transparent 60%);
+    opacity:0;transition:opacity .4s;
+  }
+  .gallery-item:hover::after{opacity:1;}
+  .gallery-item .cap{
+    position:absolute;left:1rem;bottom:1rem;color:var(--cream);
+    opacity:0;transform:translateY(10px);transition:all .4s .1s;z-index:2;
+    font-family:'Playfair Display',serif;font-size:1.1rem;
+  }
+  .gallery-item:hover .cap{opacity:1;transform:translateY(0);}
+  .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(212,162,74,.4),transparent);}
+  .pulse-dot{
+    width:8px;height:8px;border-radius:50%;background:#ef4444;
+    box-shadow:0 0 0 0 rgba(239,68,68,.7);animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(239,68,68,.7)}
+    70%{box-shadow:0 0 0 10px rgba(239,68,68,0)}
+    100%{box-shadow:0 0 0 0 rgba(239,68,68,0)}
+  }
+  .reveal{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.2,.9,.3,1);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  .hero-text-bg{
+    font-size:clamp(3rem,14vw,14rem);
+    font-weight:900;line-height:.85;letter-spacing:-.04em;
+  }
+</style>
+</head>
+<body class="grain">
+
+<!-- NAV -->
+<nav class="fixed top-0 left-0 right-0 z-50 nav-blur">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2 font-display text-2xl">
+      <span class="text-3xl">🦌</span>
+      <span class="gold-text font-bold">Deer Studio</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <a href="#services" class="hover:text-[color:var(--gold)] transition">Services</a>
+      <a href="#work" class="hover:text-[color:var(--gold)] transition">Work</a>
+      <a href="#about" class="hover:text-[color:var(--gold)] transition">About</a>
+      <a href="#contact" class="hover:text-[color:var(--gold)] transition">Contact</a>
+    </div>
+    <a href="https://instagram.com/deerstudio.hp" target="_blank" class="btn-primary px-5 py-2 rounded-full text-sm">Book a Shoot</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="relative min-h-screen flex items-center glow pt-24 pb-12 overflow-hidden">
+  <!-- Background huge text -->
+  <div aria-hidden="true" class="absolute inset-0 flex items-center justify-center opacity-[.04] pointer-events-none select-none">
+    <h1 class="font-display hero-text-bg whitespace-nowrap">DEER STUDIO</h1>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-10 items-center relative z-10">
+    <div class="lg:col-span-7">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="pulse-dot"></span>
+        <span class="text-xs uppercase tracking-[0.3em] text-[color:var(--gold-soft)]">Creative Studio · Mandi, HP</span>
+      </div>
+      <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl leading-[1.02] mb-6">
+        Oh <span class="gold-text italic">Deer!</span><br/>
+        Your content never<br/>looked this <span class="gold-text">good.</span>
+      </h1>
+      <p class="text-lg text-[color:var(--cream)]/70 max-w-xl mb-8 leading-relaxed">
+        A multi-service creative studio nestled in the hills of Himachal Pradesh — crafting photography, film, voice, and design that actually makes people stop scrolling.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="#services" class="btn-primary px-7 py-3.5 rounded-full">Explore Services →</a>
+        <a href="#work" class="btn-ghost px-7 py-3.5 rounded-full">See the Work</a>
+      </div>
+
+      <div class="mt-12 grid grid-cols-3 gap-6 max-w-md">
+        <div>
+          <div class="font-display text-3xl gold-text">04</div>
+          <div class="text-xs uppercase tracking-widest text-[color:var(--cream)]/60 mt-1">Core Services</div>
+        </div>
+        <div>
+          <div class="font-display text-3xl gold-text">HP</div>
+          <div class="text-xs uppercase tracking-widest text-[color:var(--cream)]/60 mt-1">Based in Mandi</div>
+        </div>
+        <div>
+          <div class="font-display text-3xl gold-text">∞</div>
+          <div class="text-xs uppercase tracking-widest text-[color:var(--cream)]/60 mt-1">Ideas Brewing</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-5 relative">
+      <div class="deer-float">
+        <div class="relative aspect-[4/5] rounded-2xl overflow-hidden border border-[color:var(--gold)]/20">
+          <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800" alt="Forest deer" class="w-full h-full object-cover" onerror="this.style.display='none'"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-[color:var(--bg)] via-transparent to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6">
+            <div class="text-xs uppercase tracking-[0.3em] text-[color:var(--gold-soft)] mb-2">Now Featuring</div>
+            <div class="font-display text-2xl">Shimla Shoots · Vol. 03</div>
+          </div>
+        </div>
+      </div>
+      <!-- Decorative -->
+      <div class="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-[color:var(--gold)]/10 blur-2xl"></div>
+      <div class="absolute -bottom-6 -left-6 w-32 h-32 rounded-full bg-[color:var(--rust)]/20 blur-3xl"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<section class="border-y border-[color:var(--gold)]/10 py-6 overflow-hidden bg-[color:var(--bg2)]">
+  <div class="marquee whitespace-nowrap font-display text-3xl md:text-5xl">
+    <div class="flex gap-12 px-6">
+      <span>📸 Photography</span><span class="gold-text">·</span>
+      <span>🎬 Video Editing</span><span class="gold-text">·</span>
+      <span>🎙️ Voice-over</span><span class="gold-text">·</span>
+      <span>🎨 Graphic Design</span><span class="gold-text">·</span>
+      <span>🦌 Street Stories</span><span class="gold-text">·</span>
+    </div>
+    <div class="flex gap-12 px-6" aria-hidden="true">
+      <span>📸 Photography</span><span class="gold-text">·</span>
+      <span>🎬 Video Editing</span><span class="gold-text">·</span>
+      <span>🎙️ Voice-over</span><span class="gold-text">·</span>
+      <span>🎨 Graphic Design</span><span class="gold-text">·</span>
+      <span>🦌 Street Stories</span><span class="gold-text">·</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="py-24 px-6 relative">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-16 text-center">
+      <div class="text-xs uppercase tracking-[0.4em] text-[color:var(--gold)] mb-4">What We Do</div>
+      <h2 class="font-display text-4xl md:text-6xl mb-4">Four crafts. <span class="gold-text italic">One studio.</span></h2>
+      <p class="text-[color:var(--cream)]/60 max-w-2xl mx-auto">We don't just take photos — we build entire visual worlds for creators, brands, and humans with a story worth telling.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="service-card rounded-2xl p-7 reveal">
+        <div class="ico text-5xl mb-5">📸</div>
+        <h3 class="font-display text-2xl mb-3">Photography</h3>
+        <p class="text-sm text-[color:var(--cream)]/60 leading-relaxed mb-5">Street, portraits, editorial shoots across Shimla, Mandi & the wider Himachal wilderness.</p>
+        <div class="text-xs uppercase tracking-widest text-[color:var(--gold)]">Signature ↗</div>
+      </div>
+
+      <div class="service-card rounded-2xl p-7 reveal">
+        <div class="ico text-5xl mb-5">🎬</div>
+        <h3 class="font-display text-2xl mb-3">Video Editing</h3>
+        <p class="text-sm text-[color:var(--cream)]/60 leading-relaxed mb-5">Reels, short films, and brand cuts — edited with rhythm, color, and a pulse.</p>
+        <div class="text-xs uppercase tracking-widest text-[color:var(--gold)]">Post Production ↗</div>
+      </div>
+
+      <div class="service-card rounded-2xl p-7 reveal">
+        <div class="ico text-5xl mb-5">🎙️</div>
+        <h3 class="font-display text-2xl mb-3">Voice-over</h3>
+        <p class="text-sm text-[color:var(--cream)]/60 leading-relaxed mb-5">Warm, cinematic narration in Hindi & English for ads, explainers, and stories.</p>
+        <div class="text-xs uppercase tracking-widest text-[color:var(--gold)]">Studio Audio ↗</div>
+      </div>
+
+      <div class="service-card rounded-2xl p-7 reveal">
+        <div class="ico text-5xl mb-5">🎨</div>
+        <h3 class="font-display text-2xl mb-3">Graphic Design</h3>
+        <p class="text-sm text-[color:var(--cream)]/60 leading-relaxed mb-5">Posters, thumbnails, brand kits — visuals that hit before the caption is read.</p>
+        <div class="text-xs uppercase tracking-widest text-[color:var(--gold)]">Visual Identity ↗</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider max-w-7xl mx-auto"></div>
+
+<!-- WORK / GALLERY -->
+<section id="work" class="py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div>
+        <div class="text-xs uppercase tracking-[0.4em] text-[color:var(--gold)] mb-4">Selected Frames</div>
+        <h2 class="font-display text-4xl md:text-6xl">From the <span class="gold-text italic">hills</span>.</h2>
+      </div>
+      <a href="https://instagram.com/deerstudio.hp" target="_blank" class="btn-ghost px-6 py-3 rounded-full text-sm self-start md:self-auto">View on Instagram →</a>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 reveal">
+      <div class="gallery-item row-span-2 aspect-[3/4] md:aspect-auto">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800" class="w-full h-full object-cover" alt=""/>
+        <div class="cap">Mountain Light · Shimla</div>
+      </div>
+      <div class="gallery-item aspect-square">
+        <img src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=600" class="w-full h-full object-cover" alt=""/>
+        <div class="cap">Street Study</div>
+      </div>
+      <div class="gallery-item aspect-square">
+        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600" class="w-full h-full object-cover" alt=""/>
+        <div class="cap">Dawn in Mandi</div>
+      </div>
+      <div class="gallery-item row-span-2 aspect-[3/4] md:aspect-auto">
+        <img src="https://images.unsplash.com/photo-1540206351-d6465b3ac5c1?w=800" class="w-full h-full object-cover" alt=""/>
+        <div class="cap">Portrait Series 07</div>
+      </div>
+      <div class="gallery-item aspect-square">
+        <img src="https://images.unsplash.com/photo-1485470733090-0aae1788d5af?w=600" class="w-full h-full object-cover" alt=""/>
+        <div class="cap">Golden Hour</div>
+      </div>
+      <div class="gallery-item aspect-square">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600" class="w-full h-full object-cover" alt=""/>
+        <div class="cap">Himalayan Silence</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="py-24 px-6 bg-[color:var(--bg2)] relative overflow-hidden">
+  <div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-[color:var(--gold)]/5 blur-3xl"></div>
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative">
+    <div class="reveal">
+      <div class="text-xs uppercase tracking-[0.4em] text-[color:var(--gold)] mb-4">Behind the Lens</div>
+      <h2 class="font-display text-4xl md:text-5xl mb-6">Small studio. <br/><span class="gold-text italic">Big imagination.</span></h2>
+      <p class="text-[color:var(--cream)]/70 leading-relaxed mb-5">
+        Deer Studio is a freelance creative collective born in Mandi, Himachal Pradesh — run by storytellers who grew up in pine forests and mountain towns. Every frame carries a bit of that air.
+      </p>
+      <p class="text-[color:var(--cream)]/70 leading-relaxed mb-8">
+        We work with creators, small brands, and passion projects that deserve better visuals than stock can offer. No templates. No noise. Just careful craft.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <span class="px-4 py-2 rounded-full border border-[color:var(--gold)]/30 text-sm">📍 Mandi, HP</span>
+        <span class="px-4 py-2 rounded-full border border-[color:var(--gold)]/30 text-sm">🇮🇳 India</span>
+        <span class="px-4 py-2 rounded-full border border-[color:var(--gold)]/30 text-sm">✨ Since Day One</span>
+      </div>
+    </div>
+    <div class="reveal relative">
+      <div class="aspect-square rounded-2xl overflow-hidden border border-[color:var(--gold)]/20">
+        <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=900" class="w-full h-full object-cover" alt=""/>
+      </div>
+      <div class="absolute -bottom-6 -left-6 bg-[color:var(--bg)] border border-[color:var(--gold)]/30 rounded-2xl p-5 max-w-[220px]">
+        <div class="text-3xl mb-2">🦌</div>
+        <div class="font-display text-lg leading-tight">"Shot it, edited it, voiced it — all in-house."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section id="contact" class="py-28 px-6 relative glow">
+  <div class="max-w-4xl mx-auto text-center reveal">
+    <div class="text-6xl mb-6 deer-float inline-block">🦌</div>
+    <h2 class="font-display text-4xl md:text-6xl mb-6 leading-tight">
+      Got a story? <br/><span class="gold-text italic">Let's shoot it.</span>
+    </h2>
+    <p class="text-[color:var(--cream)]/60 max-w-xl mx-auto mb-10">
+      Slide into our DMs on Instagram. Quick replies, real humans, and zero corporate nonsense — promise.
+    </p>
+    <div class="flex flex-wrap justify-center gap-4 mb-12">
+      <a href="https://instagram.com/deerstudio.hp" target="_blank" class="btn-primary px-8 py-4 rounded-full">
+        📱 @deerstudio.hp
+      </a>
+      <a href="#" class="btn-ghost px-8 py-4 rounded-full">📍 Visit in Mandi</a>
+    </div>
+
+    <div class="grid sm:grid-cols-3 gap-6 mt-16 pt-12 border-t border-[color:var(--gold)]/10">
+      <div>
+        <div class="text-xs uppercase tracking-widest text-[color:var(--gold)] mb-2">Location</div>
+        <div class="font-display text-xl">Mandi, HP</div>
+      </div>
+      <div>
+        <div class="text-xs uppercase tracking-widest text-[color:var(--gold)] mb-2">Instagram</div>
+        <div class="font-display text-xl">@deerstudio.hp</div>
+      </div>
+      <div>
+        <div class="text-xs uppercase tracking-widest text-[color:var(--gold)] mb-2">Category</div>
+        <div class="font-display text-xl">Creative Studio</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-[color:var(--gold)]/10 py-10 px-6">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-[color:var(--cream)]/50">
+    <div class="flex items-center gap-2">
+      <span class="text-xl">🦌</span>
+      <span>© 2025 Deer Studio — Mandi, Himachal Pradesh</span>
+    </div>
+    <div class="italic font-display">"Oh Deer! Your content never looked this good."</div>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+    });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
